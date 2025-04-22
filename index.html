@@ -1,0 +1,406 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест по антропологии</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
+        .question {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-number {
+            font-weight: 700;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .question-number:before {
+            content: "Вопрос";
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.8rem;
+        }
+        
+        label {
+            display: block;
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: var(--light-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        label:hover {
+            background-color: #d6eaf8;
+            transform: translateX(5px);
+        }
+        
+        label:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background-color: var(--primary-color);
+            transform: scaleY(0);
+            transition: transform 0.2s ease;
+        }
+        
+        label:hover:after {
+            transform: scaleY(1);
+        }
+        
+        input[type="radio"] {
+            margin-right: 1rem;
+            transform: scale(1.2);
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        #result {
+            display: none;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-title {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .score {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        
+        .excellent {
+            color: var(--success-color);
+        }
+        
+        .good {
+            color: var(--primary-color);
+        }
+        
+        .average {
+            color: var(--warning-color);
+        }
+        
+        .poor {
+            color: var(--accent-color);
+        }
+        
+        .feedback {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .question {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+           <h1>Тест по теме "Социальная философия"</h1>
+           <p>Всего вопросов: 17 (15 основных + 2 дополнительных)</p>
+
+    <div class="question" id="q1">
+        <div class="question-number">1. Какое определение наиболее полно отражает суть общества в социальной философии?</div>
+        <label><input type="radio" name="q1" value="a"> Совокупность людей, объединённых территорией</label>
+        <label><input type="radio" name="q1" value="b"> Сложная, динамичная, самоорганизующаяся, упорядоченная открытая система человеческой деятельности</label>
+        <label><input type="radio" name="q1" value="c"> Группа людей, связанных кровным родством</label>
+        <label><input type="radio" name="q1" value="d"> Совокупность экономических отношений</label>
+    </div>
+
+    <div class="question" id="q2">
+        <div class="question-number">2. Социальная философия — это:</div>
+        <label><input type="radio" name="q2" value="a"> Раздел психологии</label>
+        <label><input type="radio" name="q2" value="b"> Научное самосознание общества</label>
+        <label><input type="radio" name="q2" value="c"> Учение о морали</label>
+        <label><input type="radio" name="q2" value="d"> Раздел политологии</label>
+    </div>
+
+    <div class="question" id="q3">
+        <div class="question-number">3. К основным сферам жизни общества НЕ относится:</div>
+        <label><input type="radio" name="q3" value="a"> Экономическая</label>
+        <label><input type="radio" name="q3" value="b"> Политическая</label>
+        <label><input type="radio" name="q3" value="c"> Биологическая</label>
+        <label><input type="radio" name="q3" value="d"> Духовная</label>
+    </div>
+
+    <div class4="question" id="q4">
+        <div class="question-number">4. В системе социальных связей человек выступает как:</div>
+        <label><input type="radio" name="q4" value="a"> Изолированная личность</label>
+        <label><input type="radio" name="q4" value="b"> Элемент социальной структуры</label>
+        <label><input type="radio" name="q4" value="c"> Только потребитель</label>
+        <label><input type="radio" name="q4" value="d"> Исключительно производитель</label>
+    </div>
+
+    <div class="question" id="q5">
+        <div class="question-number">5. К видам социальных общностей относятся:</div>
+        <label><input type="radio" name="q5" value="a"> Семья, класс, нация</label>
+        <label><input type="radio" name="q5" value="b"> Вода, воздух, земля</label>
+        <label><input type="radio" name="q5" value="c"> Город, деревня, страна</label>
+        <label><input type="radio" name="q5" value="d"> Партия, армия, полиция</label>
+    </div>
+
+    <div class="question" id="q6">
+        <div class="question-number">6. Что является основой дифференциации общества по Марксу?</div>
+        <label><input type="radio" name="q6" value="a"> Возраст</label>
+        <label><input type="radio" name="q6" value="b"> Классы</label>
+        <label><input type="radio" name="q6" value="c"> Национальность</label>
+        <label><input type="radio" name="q6" value="d"> Пол</label>
+    </div>
+
+    <div class="question" id="q7">
+        <div class="question-number">7. Социальная стратификация — это:</div>
+        <label><input type="radio" name="q7" value="a"> Процесс объединения людей</label>
+        <label><input type="radio" name="q7" value="b"> Разделение общества на иерархические слои</label>
+        <label><input type="radio" name="q7" value="c"> Уничтожение социальных различий</label>
+        <label><input type="radio" name="q7" value="d"> Формирование политических партий</label>
+    </div>
+
+    <div class="question" id="q8">
+        <div class="question-number">8. Культура в социальной философии — это:</div>
+        <label><input type="radio" name="q8" value="a"> Совокупность материальных ценностей</label>
+        <label><input type="radio" name="q8" value="b"> Совокупность духовных и материальных достижений общества</label>
+        <label><input type="radio" name="q8" value="c"> Только искусство</label>
+        <label><input type="radio" name="q8" value="d"> Только религия</label>
+    </div>
+
+    <div class="question" id="q9">
+        <div class="question-number">9. Цивилизация — это:</div>
+        <label><input type="radio" name="q9" value="a"> Совокупность технических достижений</label>
+        <label><input type="radio" name="q9" value="b"> Исторически сложившийся тип общества с определённой системой ценностей и институтов</label>
+        <label><input type="radio" name="q9" value="c"> Только уровень развития науки</label>
+        <label><input type="radio" name="q9" value="d"> Только политическая система</label>
+    </div>
+
+    <div class="question" id="q10">
+        <div class="question-number">10. В чём отличие формационной концепции общественного развития от цивилизационной?</div>
+        <label><input type="radio" name="q10" value="a"> Формационная — акцент на экономических отношениях, цивилизационная — на культурных и духовных</label>
+        <label><input type="radio" name="q10" value="b"> Формационная — о политике, цивилизационная — о религии</label>
+        <label><input type="radio" name="q10" value="c"> Формационная — о биологии, цивилизационная — о географии</label>
+        <label><input type="radio" name="q10" value="d"> Нет отличий</label>
+    </div>
+
+    <div class="question" id="q11">
+        <div class="question-number">11. К признакам открытой системы общества относится:</div>
+        <label><input type="radio" name="q11" value="a"> Замкнутость</label>
+        <label><input type="radio" name="q11" value="b"> Взаимодействие с окружающей средой</label>
+        <label><input type="radio" name="q11" value="c"> Отсутствие изменений</label>
+        <label><input type="radio" name="q11" value="d"> Полная изоляция</label>
+    </div>
+
+    <div class="question" id="q12">
+        <div class="question-number">12. Какой из перечисленных факторов способствует самоорганизации общества?</div>
+        <label><input type="radio" name="q12" value="a"> Случайные события</label>
+        <label><input type="radio" name="q12" value="b"> Внутренние законы и нормы</label>
+        <label><input type="radio" name="q12" value="c"> Только внешнее управление</label>
+        <label><input type="radio" name="q12" value="d"> Природные катастрофы</label>
+    </div>
+
+    <div class="question" id="q13">
+        <div class="question-number">13. Класс в социальной философии — это:</div>
+        <label><input type="radio" name="q13" value="a"> Группа людей, объединённых общими экономическими интересами</label>
+        <label><input type="radio" name="q13" value="b"> Группа по возрасту</label>
+        <label><input type="radio" name="q13" value="c"> Группа по месту жительства</label>
+        <label><input type="radio" name="q13" value="d"> Группа по хобби</label>
+    </div>
+
+    <div class="question" id="q14">
+        <div class="question-number">14. Что характеризует цивилизационный подход к анализу общества?</div>
+        <label><input type="radio" name="q14" value="a"> Внимание к уникальности исторических путей развития</label>
+        <label><input type="radio" name="q14" value="b"> Игнорирование культурных различий</label>
+        <label><input type="radio" name="q14" value="c"> Только экономические отношения</label>
+        <label><input type="radio" name="q14" value="d"> Только политические институты</label>
+    </div>
+
+    <div class="question" id="q15">
+        <div class="question-number">15. К основным функциям культуры в обществе относится:</div>
+        <label><input type="radio" name="q15" value="a"> Передача знаний и ценностей</label>
+        <label><input type="radio" name="q15" value="b"> Уничтожение традиций</label>
+        <label><input type="radio" name="q15" value="c"> Формирование биологических признаков</label>
+        <label><input type="radio" name="q15" value="d"> Разделение общества</label>
+    </div>
+
+    <div class="question" id="q16">
+        <div class="question-number">16. Какой термин обозначает устойчивую группу людей, обладающих общими социальными признаками и положением в обществе?</div>
+        <label><input type="radio" name="q16" value="a"> Класс</label>
+        <label><input type="radio" name="q16" value="b"> Страта</label>
+        <label><input type="radio" name="q16" value="c"> Каста</label>
+        <label><input type="radio" name="q16" value="d"> Партия</label>
+    </div>
+
+    <div class="question" id="q17">
+        <div class="question-number">17. Какой из философов ввёл понятие «формация» для анализа общественного развития?</div>
+        <label><input type="radio" name="q17" value="a"> Макс Вебер</label>
+        <label><input type="radio" name="q17" value="b"> Карл Маркс</label>
+        <label><input type="radio" name="q17" value="c"> Эмиль Дюркгейм</label>
+        <label><input type="radio" name="q17" value="d"> Питирим Сорокин</label>
+    </div>
+
+    <button onclick="checkAnswers()">Проверить ответы</button>
+
+    <script>
+        function checkAnswers() {
+            const answers = {
+                q1: 'b',
+                q2: 'b',
+                q3: 'c',
+                q4: 'b',
+                q5: 'a',
+                q6: 'b',
+                q7: 'b',
+                q8: 'b',
+                q9: 'b',
+                q10: 'a',
+                q11: 'b',
+                q12: 'b',
+                q13: 'a',
+                q14: 'a',
+                q15: 'a',
+                q16: 'b',
+                q17: 'b'
+            };
+            let score = 0;
+            for (let key in answers) {
+                const selectedAnswer = document.querySelector(`input[name="${key}"]:checked`);
+                if (selectedAnswer && selectedAnswer.value === answers[key]) {
+                    score++;
+                }
+            }
+            alert(`Вы правильно ответили на ${score} из 17 вопросов.`);
+        }
+    </script>
+</body>
+</html>
