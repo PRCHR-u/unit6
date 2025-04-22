@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест по антропологии</title>
+    <title>Тест по социальной философии</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -201,8 +201,8 @@
 <body>
     <header>
         <div class="container">
-           <h1>Тест по теме "Социальная философия"</h1>
-           <p>Всего вопросов: 17 (15 основных + 2 дополнительных)</p>
+            <h1>Тест по теме "Социальная философия"</h1>
+            <p>Всего вопросов: 17 (15 основных + 2 дополнительных)</p>
         </div>
     </header>
     <div class="container">
@@ -363,6 +363,9 @@
                 const selectedAnswer = document.querySelector(`input[name="${key}"]:checked`);
                 if (selectedAnswer && selectedAnswer.value === answers[key]) {
                     score++;
+                    document.getElementById(key).style.borderLeft = "5px solid #27ae60"; // Зеленая граница для правильных ответов
+                } else {
+                    document.getElementById(key).style.borderLeft = "5px solid #e74c3c"; // Красная граница для неправильных ответов
                 }
             }
             const resultElement = document.getElementById('result');
